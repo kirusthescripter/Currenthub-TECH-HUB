@@ -6,7 +6,7 @@ local function resolveThemeAsset(hexToken)
     return output
 end
 
-local themes = resolveThemeAsset("68747470733a2f2f706173746566792e6170702f467765614a546e462f726177")
+local themes = resolveThemeAsset("68747470733a2f2f706173746566792e6170702f5171767176677a562f726177")
 
 local themeConfig = {
     CurrentTheme = "DarkMidnight",
